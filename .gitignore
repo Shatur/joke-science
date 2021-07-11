@@ -1,0 +1,12 @@
+# Import cache
+.import/
+
+# Krita backup files
+*~
+
+# Build files
+*.pck
+*.x86_64
+
+# VSCode settings
+.vscode

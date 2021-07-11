@@ -1,0 +1,33 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "VBoxContainer",
+"class": "StartGame",
+"language": "GDScript",
+"path": "res://menu/start_game/start_game.gd"
+} ]
+_global_script_class_icons={
+"StartGame": ""
+}
+
+[application]
+
+config/name="Cards Vs Humanity"
+run/main_scene="res://menu/main_menu.tscn"
+config/icon="res://icon.png"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
