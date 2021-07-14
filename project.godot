@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "PlayerState",
+"language": "GDScript",
+"path": "res://core/player_state.gd"
+}, {
 "base": "VBoxContainer",
 "class": "StartGame",
 "language": "GDScript",
 "path": "res://menu/start_game/start_game.gd"
 } ]
 _global_script_class_icons={
+"PlayerState": "",
 "StartGame": ""
 }
 
@@ -23,6 +29,10 @@ _global_script_class_icons={
 config/name="Cards Vs Humanity"
 run/main_scene="res://menu/main_menu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+GameState="*res://core/game_state.gd"
 
 [physics]
 

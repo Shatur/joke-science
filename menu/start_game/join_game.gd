@@ -12,4 +12,5 @@ func _confirm() -> void:
 		return
 	
 	get_tree().network_peer = peer
+	yield(peer, "connection_succeeded")
 	._confirm()
