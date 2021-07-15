@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "WindowDialog",
+"class": "ConnectionDialog",
+"language": "GDScript",
+"path": "res://menu/start_game/connection_dialog.gd"
+}, {
 "base": "Node",
 "class": "PlayerState",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://menu/start_game/start_game.gd"
 } ]
 _global_script_class_icons={
+"ConnectionDialog": "",
 "PlayerState": "",
 "StartGame": ""
 }

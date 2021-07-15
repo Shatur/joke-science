@@ -12,4 +12,4 @@ func _confirm() -> void:
 		return
 
 	get_tree().network_peer = peer
-	._confirm()
+	_enter_lobby()
