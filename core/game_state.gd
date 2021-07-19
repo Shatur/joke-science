@@ -10,7 +10,8 @@ mastersync func add_player(nickname: String) -> void:
 	for player_state in player_states:
 		if player_state.id == id:
 			get_tree().network_peer.disconnect_peer(id, true)
+		if player_state.nickname == nickname:
+			nickname = nickname + " (" + String(id) + ")"
 
-	var player_state := PlayerState.new(id, nickname)
-	player_state.nickname = nickname
+	player_states.append(PlayerState.new(id, nickname))
 	print("Connected: ", nickname)
