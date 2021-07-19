@@ -32,6 +32,7 @@ margin_left = 72.0
 margin_right = 168.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
+text = "Player"
 
 [node name="PortLabel" type="Label" parent="GridContainer"]
 margin_top = 33.0
@@ -59,4 +60,5 @@ margin_right = 55.0
 margin_bottom = 58.0
 window_title = "Внимание!"
 
+[connection signal="text_changed" from="GridContainer/NicknameEdit" to="." method="_on_nickname_changed"]
 [connection signal="pressed" from="ConfirmButton" to="." method="_confirm"]
