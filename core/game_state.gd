@@ -1,6 +1,8 @@
 extends Node
 
 
+signal player_added(player_state)
+
 var player_states: Array
 
 
@@ -13,5 +15,7 @@ mastersync func add_player(nickname: String) -> void:
 		if player_state.nickname == nickname:
 			nickname = nickname + " (" + String(id) + ")"
 
-	player_states.append(PlayerState.new(id, nickname))
+	var player_state := PlayerState.new(id, nickname)
+	player_states.append(player_state)
+	emit_signal("player_added", player_state)
 	print("Connected: ", nickname)

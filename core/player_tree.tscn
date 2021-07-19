@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://core/player_tree.gd" type="Script" id=1]
+
+[node name="PlayerTree" type="Tree"]
+margin_right = 200.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_stretch_ratio = 0.3
+columns = 2
+hide_root = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
