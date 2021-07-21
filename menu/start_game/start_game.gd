@@ -13,7 +13,7 @@ func _confirm():
 
 
 func _enter_lobby() -> void:
-	GameState.rpc_id(0, "add_player", _nickname_edit.text)
+	GameState.rpc("join_game", _nickname_edit.text)
 	# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://core/board.tscn")
 
