@@ -1,0 +1,96 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://core/game_session.gd" type="Script" id=1]
+[ext_resource path="res://core/player_tree.tscn" type="PackedScene" id=2]
+
+[node name="GameSession" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerTree" parent="." instance=ExtResource( 2 )]
+
+[node name="BoardContainer" type="VBoxContainer" parent="."]
+visible = false
+margin_left = 204.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuestionPanel" type="Panel" parent="BoardContainer"]
+margin_right = 820.0
+margin_bottom = 298.0
+size_flags_vertical = 3
+
+[node name="CardsPanel" type="Panel" parent="BoardContainer"]
+margin_top = 302.0
+margin_right = 820.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="BoardContainer/CardsPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="BoardContainer/CardsPanel/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 810.0
+margin_bottom = 288.0
+
+[node name="SessionSettings" type="Panel" parent="."]
+margin_left = 204.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SessionSettings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SessionSettings/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 800.0
+margin_bottom = 580.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="SessionSettings/MarginContainer/VBoxContainer"]
+margin_right = 780.0
+margin_bottom = 536.0
+size_flags_vertical = 3
+
+[node name="StartButton" type="Button" parent="SessionSettings/MarginContainer/VBoxContainer"]
+margin_left = 369.0
+margin_top = 540.0
+margin_right = 410.0
+margin_bottom = 560.0
+size_flags_horizontal = 4
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="SessionSettings/MarginContainer/VBoxContainer/StartButton" to="." method="_start_session"]

@@ -15,7 +15,7 @@ func _confirm():
 func _enter_lobby() -> void:
 	GameState.rpc("join_game", _nickname_edit.text)
 	# warning-ignore:return_value_discarded
-	get_tree().change_scene("res://core/board.tscn")
+	get_tree().change_scene("res://core/game_session.tscn")
 
 
 func _on_nickname_changed(nickname: String) -> void:
