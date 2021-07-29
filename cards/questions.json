@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Храните %s в зберегательной кассе",
+    "substitutions": [
+      {
+        "number": "All",
+        "case": "Accusative"
+      }
+    ]
+  },
+  {
+    "question": "Храните %s в зберегательной кассе и избавляйтесь от %s",
+    "substitutions": [
+      {
+        "number": "all",
+        "case": "Accusative"
+      },
+      {
+        "number": "All",
+        "case": "Genitive"
+      }
+    ]
+  }
+]

@@ -1,0 +1,84 @@
+[
+  {
+    "Nominative": [
+      {
+        "singular": "яблоки"
+      },
+      {
+        "plural": "яблоко"
+      }
+    ],
+    "Genitive": [
+      {
+        "singular": "яблок"
+      },
+      {
+        "plural": "яблока"
+      }
+    ],
+    "Dative": [
+      {
+        "singular": "яблокам"
+      },
+      {
+        "plural": "яблоку"
+      }
+    ],
+    "Accusative": [
+      {
+        "singular": "яблоки"
+      },
+      {
+        "plural": "яблоко"
+      }
+    ],
+    "Instrumental": [
+      {
+        "singular": "яблоками"
+      },
+      {
+        "plural": "яблоком"
+      }
+    ],
+    "Prepositional": [
+      {
+        "singular": "яблоках"
+      },
+      {
+        "plural": "яблоке"
+      }
+    ]
+  },
+  {
+    "Nominative": [
+      {
+        "singular": "ядерное оружие"
+      }
+    ],
+    "Genitive": [
+      {
+        "singular": "ядерного оружия"
+      }
+    ],
+    "Dative": [
+      {
+        "singular": "ядерному оружию"
+      }
+    ],
+    "Accusative": [
+      {
+        "singular": "ядерное оружие"
+      }
+    ],
+    "Instrumental": [
+      {
+        "singular": "ядерным оружием"
+      }
+    ],
+    "Prepositional": [
+      {
+        "singular": "ядерном оружии"
+      }
+    ]
+  }
+]
