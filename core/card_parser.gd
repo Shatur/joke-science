@@ -5,10 +5,13 @@ extends Object
 var cards: Array
 
 
-func open(filename: String):
+func open(filename: String) -> JSONParseResult:
 	var file := File.new()
-	var result: int = file.open(filename, File.READ)
-	if result != OK:
+	var open_result: int = file.open(filename, File.READ)
+	if open_result != OK:
+		var result := JSONParseResult.new()
+		result.error = ERR_FILE_CANT_OPEN
+		result.error_string = "Unable to open file " + filename
 		return result
 
 	var parse_result: JSONParseResult = JSON.parse(file.get_as_text())

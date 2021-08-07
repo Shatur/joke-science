@@ -3,7 +3,11 @@ extends Node
 
 signal player_added(player_state)
 
+const CARDS_COUNT: int = 10
+
 var player_states: Array
+var question_cards: Array
+var answer_cards: Array
 
 
 master func join_game(nickname: String) -> void:
@@ -23,7 +27,20 @@ master func join_game(nickname: String) -> void:
 	rpc("_acknowledge_player", id, nickname)
 
 
+func deal_cards() -> void:
+	var random = RandomNumberGenerator.new()
+	random.randomize()
+	
+	for player_state in player_states:
+		var cards: Array = []
+		for _i in range(CARDS_COUNT):
+			var card_index: int = random.randi_range(0, answer_cards.size() - 1)
+			cards.append(answer_cards[card_index])
+		player_state.rset_id(player_state.id, "cards", cards)
+
+
 puppet func _acknowledge_player(id: int, nickname: String) -> void:
 	var player_state := PlayerState.new(id, nickname)
 	player_states.append(player_state)
+	add_child(player_state) # To allow RPC over network
 	emit_signal("player_added", player_state)
