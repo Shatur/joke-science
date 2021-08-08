@@ -44,7 +44,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Cards Vs Humanity"
+config/name="Humor Simulator"
 run/main_scene="res://menu/main_menu.tscn"
 config/icon="res://icon.png"
 
