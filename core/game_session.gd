@@ -4,7 +4,11 @@ extends HBoxContainer
 onready var _board_container: VBoxContainer = $BoardContainer
 onready var _session_settings: Panel = $SessionSettings
 onready var _error_dialog: AcceptDialog = $ErrorDialog
+onready var _start_button: Button = $SessionSettings/MarginContainer/VBoxContainer/StartButton
 
+func _ready() -> void:
+	if not get_tree().is_network_server():
+		_start_button.disabled = true
 
 func _start_session() -> void:
 	GameState.question_cards = _read_cards("res://cards/questions.json")
