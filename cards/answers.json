@@ -1,84 +1,66 @@
 [
   {
-    "Nominative": [
-      {
-        "singular": "яблоки"
-      },
-      {
-        "plural": "яблоко"
-      }
-    ],
-    "Genitive": [
-      {
-        "singular": "яблок"
-      },
-      {
-        "plural": "яблока"
-      }
-    ],
-    "Dative": [
-      {
-        "singular": "яблокам"
-      },
-      {
-        "plural": "яблоку"
-      }
-    ],
-    "Accusative": [
-      {
-        "singular": "яблоки"
-      },
-      {
-        "plural": "яблоко"
-      }
-    ],
-    "Instrumental": [
-      {
-        "singular": "яблоками"
-      },
-      {
-        "plural": "яблоком"
-      }
-    ],
-    "Prepositional": [
-      {
-        "singular": "яблоках"
-      },
-      {
-        "plural": "яблоке"
-      }
-    ]
+    "Яблоко": {
+      "numbers": ["singular"],
+      "cases": ["nominative", "accusative"]
+    },
+    "Яблоки": {
+      "numbers": ["plural"],
+      "cases": ["nominative", "accusative"]
+    },
+    "Яблока": {
+      "numbers": ["singular"],
+      "cases": ["genitive"]
+    },
+    "Яблок": {
+      "numbers": ["plural"],
+      "cases": ["genitive"]
+    },
+    "Яблоку": {
+      "numbers": ["singular"],
+      "cases": ["dative"]
+    },
+    "Яблокам": {
+      "numbers": ["plural"],
+      "cases": ["dative"]
+    },
+    "Яблоком": {
+      "numbers": ["singular"],
+      "cases": ["instrumental"]
+    },
+    "Яблоками": {
+      "numbers": ["plural"],
+      "cases": ["instrumental"]
+    },
+    "Яблоке": {
+      "numbers": ["singular"],
+      "cases": ["prepositional"]
+    },
+    "Яблоках": {
+      "numbers": ["plural"],
+      "cases": ["prepositional"],
+    }
   },
   {
-    "Nominative": [
-      {
-        "singular": "ядерное оружие"
-      }
-    ],
-    "Genitive": [
-      {
-        "singular": "ядерного оружия"
-      }
-    ],
-    "Dative": [
-      {
-        "singular": "ядерному оружию"
-      }
-    ],
-    "Accusative": [
-      {
-        "singular": "ядерное оружие"
-      }
-    ],
-    "Instrumental": [
-      {
-        "singular": "ядерным оружием"
-      }
-    ],
-    "Prepositional": [
-      {
-        "singular": "ядерном оружии"
-      }
-    ]
+    "ядерное оружие": {
+      "numbers": ["singular", "plural"],
+      "cases": ["nominative", "accusative"],
+    },  
+    "ядерного оружия": {
+      "numbers": ["singular", "plural"],
+      "cases": ["genitive"],
+    },  
+    "ядерному оружию": {
+      "numbers": ["singular", "plural"],
+      "cases": ["dative"],
+    },  
+    "ядерным оружием": {
+      "numbers": ["singular", "plural"],
+      "cases": ["instrumental"],
+    },  
+    "ядерном оружии": {
+      "numbers": ["singular", "plural"],
+      "cases": ["prepositional"],
+    }
   }
 ]

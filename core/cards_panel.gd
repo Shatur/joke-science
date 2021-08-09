@@ -14,4 +14,4 @@ func _ready():
 func _add_card(card: Dictionary) -> void:
 	var card_button: CardButton = CardButtonScene.instance()
 	_grid_container.add_child(card_button)
-	card_button.label.text = card["Nominative"][0]["singular"]
+	card_button.card = card
