@@ -11,6 +11,7 @@ func open(filename: String) -> JSONParseResult:
 	if open_result != OK:
 		var result := JSONParseResult.new()
 		result.error = ERR_FILE_CANT_OPEN
+		result.error_line = -1
 		result.error_string = "Unable to open file " + filename
 		return result
 

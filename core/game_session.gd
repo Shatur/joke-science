@@ -33,7 +33,11 @@ func _read_cards(filename: String) -> Array:
 	var parser = CardParser.new()
 	var parse_result: JSONParseResult = parser.open(filename)
 	if parse_result.error != OK:
-		_error_dialog.dialog_text = "Unable to open file"
+		_error_dialog.window_title = "File error"
+		if parse_result.error_line != -1:
+			_error_dialog.dialog_text = "Error at line %d: %s" % [parse_result.error_line, parse_result.error_string]
+		else:
+			_error_dialog.dialog_text = parse_result.error_string
 		_error_dialog.popup_centered()
 		return []
 
