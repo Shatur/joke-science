@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ui/session/game_session.gd" type="Script" id=1]
 [ext_resource path="res://ui/session/player_tree.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/session/cards_panel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/theme/theme.tres" type="Theme" id=4]
 
 [node name="GameSession" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 4 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -66,13 +68,13 @@ __meta__ = {
 
 [node name="GridContainer" type="GridContainer" parent="SessionSettings/MarginContainer/VBoxContainer"]
 margin_right = 780.0
-margin_bottom = 536.0
+margin_bottom = 531.0
 size_flags_vertical = 3
 
 [node name="StartButton" type="Button" parent="SessionSettings/MarginContainer/VBoxContainer"]
-margin_left = 369.0
-margin_top = 540.0
-margin_right = 410.0
+margin_left = 367.0
+margin_top = 535.0
+margin_right = 412.0
 margin_bottom = 560.0
 size_flags_horizontal = 4
 text = "Start"
