@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Button",
 "class": "CardButton",
 "language": "GDScript",
-"path": "res://core/card_button.gd"
+"path": "res://ui/session/card_button.gd"
 }, {
 "base": "Object",
 "class": "CardParser",
@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "WindowDialog",
 "class": "ConnectionDialog",
 "language": "GDScript",
-"path": "res://menu/start_game/connection_dialog.gd"
+"path": "res://ui/start_game/connection_dialog.gd"
 }, {
 "base": "Node",
 "class": "PlayerState",
@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "VBoxContainer",
 "class": "StartGame",
 "language": "GDScript",
-"path": "res://menu/start_game/start_game.gd"
+"path": "res://ui/start_game/start_game.gd"
 } ]
 _global_script_class_icons={
 "CardButton": "",
@@ -45,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Joke Science"
-run/main_scene="res://menu/main_menu.tscn"
+run/main_scene="res://ui/main_menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]

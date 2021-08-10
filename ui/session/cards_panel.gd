@@ -1,7 +1,7 @@
 extends Panel
 
 
-const CardButtonScene: PackedScene = preload("res://core/card_button.tscn")
+const CardButtonScene: PackedScene = preload("res://ui/session/card_button.tscn")
 
 onready var _grid_container: GridContainer = $MarginContainer/GridContainer
 

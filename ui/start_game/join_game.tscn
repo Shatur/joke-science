@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://menu/start_game/start_game.tscn" type="PackedScene" id=1]
-[ext_resource path="res://menu/start_game/join_game.gd" type="Script" id=2]
-[ext_resource path="res://menu/start_game/connection_dialog.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/start_game/start_game.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/start_game/join_game.gd" type="Script" id=2]
+[ext_resource path="res://ui/start_game/connection_dialog.tscn" type="PackedScene" id=3]
 
 [node name="JoinGame" instance=ExtResource( 1 )]
 script = ExtResource( 2 )

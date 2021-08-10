@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://core/cards_panel.gd" type="Script" id=1]
+[ext_resource path="res://ui/session/cards_panel.gd" type="Script" id=1]
 
 [node name="CardsPanel" type="Panel"]
 size_flags_vertical = 3

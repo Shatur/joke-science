@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://core/card_button.gd" type="Script" id=1]
+[ext_resource path="res://ui/session/card_button.gd" type="Script" id=1]
 
 [node name="CardButton" type="Button"]
 margin_right = 150.0
