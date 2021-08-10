@@ -15,6 +15,9 @@ __meta__ = {
 }
 
 [node name="PlayerTree" parent="." instance=ExtResource( 2 )]
+margin_right = 200.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 200, 0 )
 
 [node name="BoardContainer" type="VBoxContainer" parent="."]
 visible = false

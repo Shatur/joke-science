@@ -22,7 +22,7 @@ __meta__ = {
 [node name="IpLineEdit" type="LineEdit" parent="GridContainer" index="3"]
 margin_left = 72.0
 margin_top = 28.0
-margin_right = 168.0
+margin_right = 146.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
 text = "127.0.0.1"

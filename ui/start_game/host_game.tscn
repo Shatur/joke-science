@@ -6,13 +6,10 @@
 [node name="HostGame" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="GridContainer" parent="." index="0"]
-margin_bottom = 52.0
-
-[node name="PortLabel" parent="GridContainer" index="0"]
+[node name="NicknameLabel" parent="GridContainer" index="0"]
 margin_right = 90.0
 
-[node name="PortSpinBox" parent="GridContainer" index="1"]
+[node name="NicknameEdit" parent="GridContainer" index="1"]
 margin_left = 94.0
 margin_right = 168.0
 
@@ -33,6 +30,18 @@ margin_bottom = 52.0
 min_value = 3.0
 value = 3.0
 
-[node name="ConfirmButton" parent="." index="1"]
+[node name="PortLabel" parent="GridContainer" index="4"]
+margin_top = 61.0
+margin_right = 90.0
+margin_bottom = 75.0
+
+[node name="PortSpinBox" parent="GridContainer" index="5"]
+margin_left = 94.0
 margin_top = 56.0
-margin_bottom = 76.0
+margin_right = 168.0
+margin_bottom = 80.0
+
+[node name="ConfirmButton" parent="." index="1"]
+margin_top = 84.0
+margin_right = 168.0
+margin_bottom = 104.0

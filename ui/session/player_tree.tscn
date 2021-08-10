@@ -3,10 +3,6 @@
 [ext_resource path="res://ui/session/player_tree.gd" type="Script" id=1]
 
 [node name="PlayerTree" type="Tree"]
-margin_right = 200.0
-margin_bottom = 600.0
-rect_min_size = Vector2( 200, 0 )
-size_flags_stretch_ratio = 0.3
 columns = 2
 hide_root = true
 script = ExtResource( 1 )
