@@ -18,3 +18,7 @@ func _back() -> void:
 	_back_button.hide()
 	_main_menu.show()
 	_current_window.hide()
+
+
+func _exit():
+	get_tree().quit()
