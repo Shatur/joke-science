@@ -10,6 +10,12 @@ var current_player_state: PlayerState
 var question_cards: Array
 var answer_cards: Array
 
+var _random := RandomNumberGenerator.new()
+
+
+func _ready() -> void:
+	_random.randomize()
+
 
 master func join_game(nickname: String) -> void:
 	var id: int = get_tree().multiplayer.get_rpc_sender_id()
@@ -29,13 +35,10 @@ master func join_game(nickname: String) -> void:
 
 
 func deal_cards() -> void:
-	var random = RandomNumberGenerator.new()
-	random.randomize()
-	
 	for player_state in player_states:
 		var cards: Array = []
 		for _i in range(CARDS_COUNT):
-			var card_index: int = random.randi_range(0, answer_cards.size() - 1)
+			var card_index: int = _random.randi_range(0, answer_cards.size() - 1)
 			cards.append(answer_cards[card_index])
 		player_state.rpc_id(player_state.id, "set_cards", cards)
 
