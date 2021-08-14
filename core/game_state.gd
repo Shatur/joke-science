@@ -2,11 +2,15 @@ extends Node
 
 
 signal player_added(player_state)
+# warning-ignore:unused_signal
+signal question_changed(question) # Called from RPC
 
 const CARDS_COUNT: int = 10
 
 var player_states: Array
 var current_player_state: PlayerState
+
+# Available only on server
 var question_cards: Array
 var answer_cards: Array
 
@@ -15,6 +19,7 @@ var _random := RandomNumberGenerator.new()
 
 func _ready() -> void:
 	_random.randomize()
+	rpc_config("emit_signal", MultiplayerAPI.RPC_MODE_PUPPETSYNC)
 
 
 master func join_game(nickname: String) -> void:
@@ -34,7 +39,17 @@ master func join_game(nickname: String) -> void:
 	rpc("_acknowledge_player", id, nickname)
 
 
-func deal_cards() -> void:
+func start_game() -> void:
+	_deal_cards()
+	_pick_question()
+
+
+func _pick_question() -> void:
+	var question_index: int = _random.randi_range(0, question_cards.size() - 1)
+	rpc("emit_signal", "question_changed", question_cards[question_index])
+
+
+func _deal_cards() -> void:
 	for player_state in player_states:
 		var cards: Array = []
 		for _i in range(CARDS_COUNT):
