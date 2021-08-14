@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/session/game_session.gd" type="Script" id=1]
 [ext_resource path="res://ui/session/player_tree.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/session/cards_panel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/theme/theme.tres" type="Theme" id=4]
+[ext_resource path="res://ui/session/question_panel.tscn" type="PackedScene" id=5]
 
 [node name="GameSession" type="HBoxContainer"]
 anchor_right = 1.0
@@ -29,7 +30,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="QuestionPanel" type="Panel" parent="BoardContainer"]
+[node name="QuestionPanel" parent="BoardContainer" instance=ExtResource( 5 )]
 margin_right = 408.0
 margin_bottom = 298.0
 size_flags_vertical = 3
@@ -38,10 +39,6 @@ size_flags_vertical = 3
 margin_top = 302.0
 margin_right = 408.0
 margin_bottom = 600.0
-
-[node name="GridContainer" parent="BoardContainer/CardsPanel/MarginContainer" index="0"]
-margin_right = 398.0
-margin_bottom = 288.0
 
 [node name="SessionSettings" type="Panel" parent="."]
 margin_left = 204.0
@@ -91,5 +88,3 @@ margin_bottom = 58.0
 window_title = "Внимание!"
 
 [connection signal="pressed" from="SessionSettings/MarginContainer/VBoxContainer/StartButton" to="." method="_start_session"]
-
-[editable path="BoardContainer/CardsPanel"]

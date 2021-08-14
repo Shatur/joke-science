@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/player_state.gd"
 }, {
+"base": "RichTextLabel",
+"class": "QuestionLabel",
+"language": "GDScript",
+"path": "res://ui/session/question_label.gd"
+}, {
 "base": "VBoxContainer",
 "class": "StartGame",
 "language": "GDScript",
@@ -39,6 +44,7 @@ _global_script_class_icons={
 "CardParser": "",
 "ConnectionDialog": "",
 "PlayerState": "",
+"QuestionLabel": "",
 "StartGame": ""
 }
 

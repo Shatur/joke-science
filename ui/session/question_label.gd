@@ -1,8 +1,10 @@
+class_name QuestionLabel
 extends RichTextLabel
 
 
 var question: String setget set_question
-var words: Array
+
+var _words: Array
 
 
 func set_question(new_question: String) -> void:
@@ -10,17 +12,22 @@ func set_question(new_question: String) -> void:
 	_redraw_text()
 
 
+func set_words(words: Array) -> void:
+	_words = words
+	_redraw_text()
+
+
 func add_word(word: String) -> void:
-	words.append(word)
+	_words.append(word)
 	_redraw_text()
 
 
 func remove_word(word: String) -> void:
-	var index: int = words.find(word)
+	var index: int = _words.find(word)
 	assert(index != -1, "Unable to remove word from question label: " + word)
-	words.remove(index)
+	_words.remove(index)
 	_redraw_text()
 
 
 func _redraw_text() -> void:
-	bbcode_text = question % words
+	bbcode_text = question.format(_words, "...")
