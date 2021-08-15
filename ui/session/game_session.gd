@@ -13,8 +13,8 @@ func _ready() -> void:
 
 
 func _start_session() -> void:
-	GameState.question_cards = _read_cards("res://cards/questions.json")
-	if GameState.question_cards.empty():
+	GameState.sentence_cards = _read_cards("res://cards/sentences.json")
+	if GameState.sentence_cards.empty():
 		return
 
 	GameState.answer_cards = _read_cards("res://cards/answers.json")

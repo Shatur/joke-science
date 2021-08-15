@@ -1,14 +1,14 @@
-class_name QuestionLabel
+class_name SentenceLabel
 extends RichTextLabel
 
 
-var question: String setget set_question
+var sentence: String setget set_sentence
 
 var _words: Array
 
 
-func set_question(new_question: String) -> void:
-	question = new_question
+func set_sentence(new_sentence: String) -> void:
+	sentence = new_sentence
 	_redraw_text()
 
 
@@ -24,10 +24,10 @@ func add_word(word: String) -> void:
 
 func remove_word(word: String) -> void:
 	var index: int = _words.find(word)
-	assert(index != -1, "Unable to remove word from question label: " + word)
+	assert(index != -1, "Unable to remove word from sentence label: " + word)
 	_words.remove(index)
 	_redraw_text()
 
 
 func _redraw_text() -> void:
-	bbcode_text = question.format(_words, "...")
+	bbcode_text = sentence.format(_words, "...")

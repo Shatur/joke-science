@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://ui/session/question_label.gd" type="Script" id=1]
+[ext_resource path="res://ui/session/sentence_label.gd" type="Script" id=1]
 
-[node name="QuestionLabel" type="RichTextLabel"]
+[node name="SentenceLabel" type="RichTextLabel"]
 margin_bottom = 15.0
 bbcode_enabled = true
 fit_content_height = true

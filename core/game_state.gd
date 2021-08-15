@@ -2,16 +2,23 @@ extends Node
 
 
 signal player_added(player_state)
-# warning-ignore:unused_signal
-signal question_changed(question) # Called from RPC
+signal state_changed(state)
+
+enum {
+	None,
+	ChoosingCards,
+	ChoosingSentence,
+}
 
 const CARDS_COUNT: int = 10
 
+var state: int = None setget set_state
+var current_sentence: Dictionary
 var player_states: Array
 var current_player_state: PlayerState
 
 # Available only on server
-var question_cards: Array
+var sentence_cards: Array
 var answer_cards: Array
 
 var _random := RandomNumberGenerator.new()
@@ -41,12 +48,20 @@ master func join_game(nickname: String) -> void:
 
 func start_game() -> void:
 	_deal_cards()
-	_pick_question()
+	self.state = ChoosingCards # TODO 4.0: Remove self
 
 
-func _pick_question() -> void:
-	var question_index: int = _random.randi_range(0, question_cards.size() - 1)
-	rpc("emit_signal", "question_changed", question_cards[question_index])
+func set_state(new_state: int) -> void:
+	state = new_state
+	match state:
+		ChoosingCards:
+			_pick_sentence()
+	emit_signal("state_changed", state)
+
+
+func _pick_sentence() -> void:
+	var sentence_index: int = _random.randi_range(0, sentence_cards.size() - 1)
+	current_sentence = sentence_cards[sentence_index]
 
 
 func _deal_cards() -> void:

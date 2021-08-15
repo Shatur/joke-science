@@ -4,7 +4,7 @@
 [ext_resource path="res://ui/session/player_tree.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/session/cards_panel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/theme/theme.tres" type="Theme" id=4]
-[ext_resource path="res://ui/session/question_panel.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/session/sentence_panel.tscn" type="PackedScene" id=5]
 
 [node name="GameSession" type="HBoxContainer"]
 anchor_right = 1.0
@@ -30,7 +30,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="QuestionPanel" parent="BoardContainer" instance=ExtResource( 5 )]
+[node name="SentencePanel" parent="BoardContainer" instance=ExtResource( 5 )]
 margin_right = 408.0
 margin_bottom = 298.0
 size_flags_vertical = 3
