@@ -59,6 +59,13 @@ func set_state(new_state: int) -> void:
 	emit_signal("state_changed", state)
 
 
+func get_player_state(id: int) -> PlayerState:
+	for player_state in player_states:
+		if player_state.id == id:
+			return player_state
+	return null
+
+
 func _pick_sentence() -> void:
 	var sentence_index: int = _random.randi_range(0, sentence_cards.size() - 1)
 	current_sentence = sentence_cards[sentence_index]
