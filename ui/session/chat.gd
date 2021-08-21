@@ -12,36 +12,40 @@ func _ready() -> void:
 	# warning-ignore:return_value_discarded
 	get_tree().connect("network_peer_disconnected", self, "_announce_disconnected")
 	# warning-ignore:return_value_discarded
-	get_tree().connect("server_disconnected", self, "_display_message", ["gray", "You have been disconnected from the server."])
-	_display_message("gray", "You joined the game.")
+	get_tree().connect("server_disconnected", self, "_display_text", ["gray", "You have been disconnected from the server."])
+	_display_text("gray", "You joined the game.")
 
 
-master func _send_message(message: String) -> void:
+master func _validate_message(message: String) -> void:
 	if message.empty():
 		return
-	var nickname: String = GameState.get_player_state(get_tree().get_rpc_sender_id()).nickname
-	rpc("_display_message", "white", "[[color=green]%s[/color]]: %s" % [nickname, message])
+	rpc("_recieve_message", get_tree().get_rpc_sender_id(), message)
 
 
-puppetsync func _display_message(bbColor: String, message: String) -> void:
-	_chat_window.bbcode_text += "\n%s [color=%s]%s[/color]" % [_time(), bbColor, message]
+puppetsync func _recieve_message(id: int, message: String) -> void:
+	var nickname: String = GameState.get_player_state(id).nickname
+	_display_text("white", "[[color=green]%s[/color]]: %s" % [nickname, message])
 
 
 func _write_message(message: String) -> void:
 	if message.empty():
 		return
 	_input_field.clear()
-	rpc("_send_message", message)
+	rpc("_validate_message", message)
 
 
 func _announce_connected(id: int) -> void:
 	var nickname: String = GameState.get_player_state(id).nickname
-	_display_message("yellow", "%s has joined the game." % nickname)
+	_display_text("yellow", "%s has joined the game." % nickname)
 
 
 func _announce_disconnected(id: int) -> void:
 	var nickname: String = GameState.get_player_state(id).nickname
-	_display_message("yellow", "%s has left the game." % nickname)
+	_display_text("yellow", "%s has left the game." % nickname)
+
+
+func _display_text(bbColor: String, text: String) -> void:
+	_chat_window.bbcode_text += "\n%s [color=%s]%s[/color]" % [_time(), bbColor, text]
 
 
 func _time() -> String:
