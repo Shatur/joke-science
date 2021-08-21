@@ -18,4 +18,3 @@ func _on_state_changed(state: int) -> void:
 		GameState.ChoosingCards:
 			_label_container.visible = true
 			_button_container.visible = false
-			_sentence_label.sentence = GameState.current_sentence["text"]

@@ -46,11 +46,6 @@ margin_right = 408.0
 margin_bottom = 298.0
 size_flags_vertical = 3
 
-[node name="SentenceLabel" parent="BoardContainer/SentencePanel/SentenceContainer" index="0"]
-margin_top = 139.0
-margin_right = 398.0
-margin_bottom = 159.0
-
 [node name="CardsPanel" parent="BoardContainer" instance=ExtResource( 3 )]
 margin_top = 302.0
 margin_right = 408.0
@@ -103,9 +98,4 @@ margin_right = 55.0
 margin_bottom = 58.0
 window_title = "Внимание!"
 
-[connection signal="substitution_index_changed" from="BoardContainer/SentencePanel/SentenceContainer/SentenceLabel" to="BoardContainer/CardsPanel" method="redraw_cards"]
-[connection signal="word_added" from="BoardContainer/CardsPanel" to="BoardContainer/SentencePanel/SentenceContainer/SentenceLabel" method="add_word"]
-[connection signal="word_removed" from="BoardContainer/CardsPanel" to="BoardContainer/SentencePanel/SentenceContainer/SentenceLabel" method="remove_word"]
 [connection signal="pressed" from="SessionSettings/MarginContainer/VBoxContainer/StartButton" to="." method="_start_session"]
-
-[editable path="BoardContainer/SentencePanel"]

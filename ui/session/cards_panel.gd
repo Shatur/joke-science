@@ -1,9 +1,6 @@
 extends Panel
 
 
-signal word_added(word)
-signal word_removed(word)
-
 const CardButtonScene: PackedScene = preload("res://ui/session/card_button.tscn")
 
 onready var _grid_container: GridContainer = $MarginContainer/GridContainer
@@ -12,9 +9,11 @@ onready var _grid_container: GridContainer = $MarginContainer/GridContainer
 func _ready():
 	# warning-ignore:return_value_discarded
 	GameState.current_player_state.connect("card_added", self, "_add_card")
+	# warning-ignore:return_value_discarded
+	GameState.current_player_state.connect("next_substitution_changed", self, "_redraw_cards")
 
 
-func redraw_cards(substitution_index: int) -> void:
+func _redraw_cards(substitution_index: int) -> void:
 	var substitutions: Array = GameState.current_sentence["substitutions"]
 	if substitutions.size() == substitution_index:
 		_disable_unpressed_cards()
@@ -47,6 +46,6 @@ func _add_card(card: Dictionary) -> void:
 
 func _on_card_toggled(button_pressed: bool, card_button: CardButton) -> void:
 	if button_pressed:
-		emit_signal("word_added", card_button.label.text)
+		GameState.current_player_state.rpc("add_word", card_button.label.text)
 	else:
-		emit_signal("word_removed", card_button.label.text)
+		GameState.current_player_state.rpc("remove_word", card_button.label.text)
