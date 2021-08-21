@@ -16,7 +16,7 @@ var _cards: Array setget set_cards
 func _init(new_id: int, new_nickname: String) -> void:
 	id = new_id
 	nickname = new_nickname
-	GameState.connect("state_changed", self, "_on_game_state_changed")
+	GameState.connect("new_sentence_available", self, "_on_new_sentence_available")
 
 
 mastersync func add_word(word: String) -> void:
@@ -42,18 +42,16 @@ mastersync func remove_word(word: String) -> void:
 	emit_signal("next_substitution_changed", _first_missing_index())
 
 
-puppetsync func set_cards(cards: Array) -> void:
+puppet func set_cards(cards: Array) -> void:
 	_cards = cards
 	for card in _cards:
 		emit_signal("card_added", card)
 
 
-func _on_game_state_changed(state: int) -> void:
-	match state:
-		GameState.ChoosingCards:
-			substitutions.clear()
-			emit_signal("substitutions_count_changed", 0)
-			emit_signal("next_substitution_changed", 0)
+func _on_new_sentence_available() -> void:
+	substitutions.clear()
+	emit_signal("substitutions_count_changed", 0)
+	emit_signal("next_substitution_changed", 0)
 
 
 func _validate_word(word: String, substitution: Dictionary) -> bool:
@@ -63,7 +61,7 @@ func _validate_word(word: String, substitution: Dictionary) -> bool:
 		var parameters = card.get(word)
 		if parameters == null:
 			continue
-		if parameters["cases"].has(case) and (number == null or not parameters["numbers"].has(number)):
+		if parameters["cases"].has(case) and (number == null or parameters["numbers"].has(number)):
 			return true
 		return false
 	return false

@@ -10,11 +10,9 @@ onready var _button_container: VBoxContainer = $VariantsContainer
 
 func _ready():
 	# warning-ignore:return_value_discarded
-	GameState.connect("state_changed", self, "_on_state_changed")
+	GameState.connect("new_sentence_available", self, "_on_new_sentence_available")
 
 
-func _on_state_changed(state: int) -> void:
-	match state:
-		GameState.ChoosingCards:
-			_label_container.visible = true
-			_button_container.visible = false
+func _on_new_sentence_available() -> void:
+	_label_container.visible = true
+	_button_container.visible = false

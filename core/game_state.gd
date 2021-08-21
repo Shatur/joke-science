@@ -2,18 +2,11 @@ extends Node
 
 
 signal player_added(player_state)
-signal state_changed(state)
-
-enum {
-	None,
-	ChoosingCards,
-	ChoosingSentence,
-}
+signal new_sentence_available()
 
 const CARDS_COUNT: int = 10
 
-var state: int = None setget set_state
-var current_sentence: Dictionary
+var current_sentence: Dictionary setget set_current_sentence
 var player_states: Array
 var current_player_state: PlayerState
 
@@ -42,21 +35,12 @@ master func join_game(nickname: String) -> void:
 	for player_state in player_states:
 		rpc_id(id, "_acknowledge_player", player_state.id, player_state.nickname)
 
-	_acknowledge_player(id, nickname)
 	rpc("_acknowledge_player", id, nickname)
 
 
 func start_game() -> void:
 	_deal_cards()
-	self.state = ChoosingCards # TODO 4.0: Remove self
-
-
-func set_state(new_state: int) -> void:
-	state = new_state
-	match state:
-		ChoosingCards:
-			_pick_sentence()
-	emit_signal("state_changed", state)
+	_pick_sentence()
 
 
 func get_player_state(id: int) -> PlayerState:
@@ -66,9 +50,14 @@ func get_player_state(id: int) -> PlayerState:
 	return null
 
 
+puppetsync func set_current_sentence(new_sentence: Dictionary) -> void:
+	current_sentence = new_sentence
+	emit_signal("new_sentence_available")
+
+
 func _pick_sentence() -> void:
 	var sentence_index: int = _random.randi_range(0, sentence_cards.size() - 1)
-	current_sentence = sentence_cards[sentence_index]
+	rpc("set_current_sentence", sentence_cards[sentence_index])
 
 
 func _deal_cards() -> void:
@@ -77,10 +66,12 @@ func _deal_cards() -> void:
 		for _i in range(CARDS_COUNT):
 			var card_index: int = _random.randi_range(0, answer_cards.size() - 1)
 			cards.append(answer_cards[card_index])
-		player_state.rpc_id(player_state.id, "set_cards", cards)
+		if player_state.id != get_tree().get_network_unique_id():
+			player_state.rpc_id(player_state.id, "set_cards", cards)
+		player_state.set_cards(cards)
 
 
-puppet func _acknowledge_player(id: int, nickname: String) -> void:
+puppetsync func _acknowledge_player(id: int, nickname: String) -> void:
 	var player_state := PlayerState.new(id, nickname)
 	player_states.append(player_state)
 	if get_tree().get_network_unique_id() == id:
