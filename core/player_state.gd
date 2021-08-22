@@ -1,10 +1,10 @@
 class_name PlayerState
 extends Node
 
+
 signal card_added(card)
 signal substitutions_count_changed(count)
 signal next_substitution_changed(index)
-
 
 var id: int
 var nickname: String
