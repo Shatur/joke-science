@@ -10,11 +10,5 @@ func _init() -> void:
 	_regex.compile("\\{\\d\\}")
 
 
-func _ready() -> void:
-	# warning-ignore:return_value_discarded
-	GameState.current_player_state.connect("next_substitution_changed", self, "_redraw_text")
-
-
-# TODO 4.0: unbind index
-func _redraw_text(_index: int) -> void:
-	bbcode_text = _regex.sub(GameState.current_sentence["text"].format(GameState.current_player_state.substitutions), "...", true)
+func format_sentence(sentence: String, subsitutions: Dictionary) -> void:
+	bbcode_text = _regex.sub(sentence.format(subsitutions), "...", true)

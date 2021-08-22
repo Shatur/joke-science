@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/player_state.gd"
 }, {
+"base": "Button",
+"class": "SentenceButton",
+"language": "GDScript",
+"path": "res://ui/session/sentence_button.gd"
+}, {
 "base": "RichTextLabel",
 "class": "SentenceLabel",
 "language": "GDScript",
@@ -43,6 +48,11 @@ _global_script_classes=[ {
 "class": "StartGame",
 "language": "GDScript",
 "path": "res://ui/start_game/start_game.gd"
+}, {
+"base": "MarginContainer",
+"class": "VariantsContainer",
+"language": "GDScript",
+"path": "res://ui/session/variants_container.gd"
 } ]
 _global_script_class_icons={
 "CardButton": "",
@@ -50,8 +60,10 @@ _global_script_class_icons={
 "Chat": "",
 "ConnectionDialog": "",
 "PlayerState": "",
+"SentenceButton": "",
 "SentenceLabel": "",
-"StartGame": ""
+"StartGame": "",
+"VariantsContainer": ""
 }
 
 [application]

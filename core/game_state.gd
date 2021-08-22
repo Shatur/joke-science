@@ -4,6 +4,8 @@ extends Node
 signal player_added(player_state)
 signal new_sentence_available()
 signal cheating_detected(id, reason)
+# warning-ignore:unused_signal
+signal all_cards_choosen(substitutions) # Called via RPC
 
 const CARDS_COUNT: int = 10
 
@@ -82,5 +84,22 @@ puppetsync func _acknowledge_player(id: int, nickname: String) -> void:
 	player_states.append(player_state)
 	if get_tree().get_network_unique_id() == id:
 		current_player_state = player_state # Store current player state for easy access
+	if get_tree().is_network_server():
+		# warning-ignore:return_value_discarded
+		player_state.connect("substitutions_count_changed", self, "_check_cards_choosen")
 	add_child(player_state) # To allow RPC over network
 	emit_signal("player_added", player_state)
+
+
+# TODO 4.0: Unbind count
+func _check_cards_choosen(_count: int) -> void:
+	var subsitutions_count: int = current_sentence["substitutions"].size()
+	for player_state in player_states:
+		if player_state.substitutions.size() != subsitutions_count:
+			return
+	
+	
+	var substitutions: Array = []
+	for player_state in GameState.player_states:
+		substitutions.append(player_state.substitutions)
+	rpc("emit_signal", "all_cards_choosen", substitutions)
