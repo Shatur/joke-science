@@ -3,6 +3,7 @@ extends Node
 
 signal player_added(player_state)
 signal new_sentence_available()
+signal cheating_detected(id, reason)
 
 const CARDS_COUNT: int = 10
 
@@ -48,6 +49,11 @@ func get_player_state(id: int) -> PlayerState:
 		if player_state.id == id:
 			return player_state
 	return null
+
+
+func disconnect_cheater(id: int, reason: String) -> void:
+	emit_signal("cheating_detected", id, reason)
+	get_tree().network_peer.disconnect_peer(id)
 
 
 puppetsync func set_current_sentence(new_sentence: Dictionary) -> void:

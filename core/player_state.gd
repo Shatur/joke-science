@@ -22,8 +22,9 @@ func _init(new_id: int, new_nickname: String) -> void:
 mastersync func add_word(word: String) -> void:
 	var index: int = _first_missing_index()
 	if get_tree().is_network_server():
-		if not _validate_word(word, GameState.current_sentence["substitutions"][index]):
-			get_tree().network_peer.disconnect_peer(get_tree().get_rpc_sender_id())
+		var error_message: String = _validate_word(word, GameState.current_sentence["substitutions"][index])
+		if not error_message.empty():
+			GameState.disconnect_cheater(get_tree().get_rpc_sender_id(), error_message)
 	substitutions[index] = word
 	emit_signal("substitutions_count_changed", substitutions.size())
 	emit_signal("next_substitution_changed", _first_missing_index(index))
@@ -54,7 +55,7 @@ func _on_new_sentence_available() -> void:
 	emit_signal("next_substitution_changed", 0)
 
 
-func _validate_word(word: String, substitution: Dictionary) -> bool:
+func _validate_word(word: String, substitution: Dictionary) -> String:
 	var case: String = substitution["case"]
 	var number = substitution.get("number")
 	for card in _cards:
@@ -62,9 +63,9 @@ func _validate_word(word: String, substitution: Dictionary) -> bool:
 		if parameters == null:
 			continue
 		if parameters["cases"].has(case) and (number == null or parameters["numbers"].has(number)):
-			return true
-		return false
-	return false
+			return String()
+		return "The word %s cannot be substituted" % word
+	return "Unable to find word %s in player cards" % word
 
 
 func _first_missing_index(begin: int = 0) -> int:

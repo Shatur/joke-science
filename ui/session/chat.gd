@@ -13,6 +13,8 @@ func _ready() -> void:
 	get_tree().connect("network_peer_disconnected", self, "_announce_disconnected")
 	# warning-ignore:return_value_discarded
 	get_tree().connect("server_disconnected", self, "_display_text", ["gray", "You have been disconnected from the server."])
+	# warning-ignore:return_value_discarded
+	GameState.connect("cheating_detected", self, "_announce_cheating_detected")
 	_display_text("gray", "You joined the game.")
 
 
@@ -42,6 +44,11 @@ func _announce_connected(id: int) -> void:
 func _announce_disconnected(id: int) -> void:
 	var nickname: String = GameState.get_player_state(id).nickname
 	_display_text("yellow", "%s has left the game." % nickname)
+
+
+func _announce_cheating_detected(id: int, reason: String) -> void:
+	var nickname: String = GameState.get_player_state(id).nickname
+	_display_text("red", "%s was caught cheating: %s" % [nickname, reason])
 
 
 func _display_text(bbColor: String, text: String) -> void:
