@@ -16,6 +16,7 @@ var _cards: Array setget set_cards
 func _init(new_id: int, new_nickname: String) -> void:
 	id = new_id
 	nickname = new_nickname
+	# warning-ignore:return_value_discarded
 	GameState.connect("new_sentence_available", self, "_on_new_sentence_available")
 
 
