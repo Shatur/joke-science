@@ -7,6 +7,12 @@ signal cheating_detected(id, reason)
 # warning-ignore:unused_signal
 signal all_cards_choosen(substitutions) # Called via RPC
 
+enum {
+	NO_STATE,
+	CHOOSING_CARDS,
+	CHOOSING_SENTENCES,
+}
+
 const CARDS_COUNT: int = 10
 
 var current_sentence: Dictionary setget set_current_sentence
@@ -16,6 +22,7 @@ var current_player_state: PlayerState
 # Available only on server
 var sentence_cards: Array
 var answer_cards: Array
+var state: int = NO_STATE
 
 var _random := RandomNumberGenerator.new()
 
@@ -64,6 +71,7 @@ puppetsync func set_current_sentence(new_sentence: Dictionary) -> void:
 
 
 func _pick_sentence() -> void:
+	state = CHOOSING_CARDS
 	var sentence_index: int = _random.randi_range(0, sentence_cards.size() - 1)
 	rpc("set_current_sentence", sentence_cards[sentence_index])
 
@@ -98,6 +106,7 @@ func _check_cards_choosen(_count: int) -> void:
 		if player_state.substitutions.size() != subsitutions_count:
 			return
 
+	state = CHOOSING_SENTENCES
 	var substitutions: Array = []
 	for player_state in GameState.player_states:
 		substitutions.append(player_state.substitutions)

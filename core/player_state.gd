@@ -23,13 +23,11 @@ func _init(new_id: int, new_nickname: String) -> void:
 mastersync func add_word(word: String) -> void:
 	var index: int = _first_missing_index()
 	if get_tree().is_network_server():
-		var sentence_substitutions: Array = GameState.current_sentence["substitutions"]
-		if index >= sentence_substitutions.size():
-			GameState.disconnect_cheater(get_tree().get_rpc_sender_id(), "Received word %s when the number of substitutions in the sentence has ended" % word)
+		if not _validate_state(word):
 			return
-		var error_message: String = _validate_word(word, sentence_substitutions[index])
-		if not error_message.empty():
-			GameState.disconnect_cheater(get_tree().get_rpc_sender_id(), error_message)
+		if not _validate_next_index(word, index):
+			return
+		if not _validate_substitution(word, GameState.current_sentence["substitutions"][index]):
 			return
 	substitutions[index] = word
 	emit_signal("substitutions_count_changed", substitutions.size())
@@ -42,9 +40,11 @@ mastersync func remove_word(word: String) -> void:
 		if substitutions[index] == word:
 			remove_index = index
 	
-	if get_tree().is_network_server() and remove_index == -1:
-		GameState.disconnect_cheater(get_tree().get_rpc_sender_id(), "Recivied invalid word: %s" % word)
-		return
+	if get_tree().is_network_server():
+		if not _validate_state(word):
+			return
+		if not _validate_index(word, remove_index):
+			return
 
 	# warning-ignore:return_value_discarded
 	substitutions.erase(remove_index)
@@ -64,7 +64,7 @@ func _on_new_sentence_available() -> void:
 	emit_signal("next_substitution_changed", 0)
 
 
-func _validate_word(word: String, substitution: Dictionary) -> String:
+func _validate_substitution(word: String, substitution: Dictionary) -> bool:
 	var case: String = substitution["case"]
 	var number = substitution.get("number")
 	for card in _cards:
@@ -72,9 +72,32 @@ func _validate_word(word: String, substitution: Dictionary) -> String:
 		if parameters == null:
 			continue
 		if parameters["cases"].has(case) and (number == null or parameters["numbers"].has(number)):
-			return String()
-		return "The word %s cannot be substituted" % word
-	return "Unable to find word %s in player cards" % word
+			return true
+		GameState.disconnect_cheater(get_tree().get_rpc_sender_id(), "The word %s cannot be substituted" % word)
+		return false
+	GameState.disconnect_cheater(get_tree().get_rpc_sender_id(), "Unable to find word %s in player cards" % word)
+	return false
+
+
+func _validate_next_index(word: String, index: int) -> bool:
+	if index < GameState.current_sentence["substitutions"].size():
+		return true
+	GameState.disconnect_cheater(get_tree().get_rpc_sender_id(), "Received word %s when the number of substitutions in the sentence has ended" % word)
+	return false
+
+
+func _validate_index(word: String, index: int) -> bool:
+	if index != -1:
+		return true
+	GameState.disconnect_cheater(get_tree().get_rpc_sender_id(), "Unable to find index for word: %s" % word)
+	return false
+
+
+func _validate_state(word: String) -> bool:
+	if GameState.state == GameState.CHOOSING_CARDS:
+		return true
+	GameState.disconnect_cheater(get_tree().get_rpc_sender_id(), "Received word %s when current state is not choosing cards" % word)
+	return false
 
 
 func _first_missing_index(begin: int = 0) -> int:
