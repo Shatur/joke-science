@@ -23,9 +23,14 @@ func _init(new_id: int, new_nickname: String) -> void:
 mastersync func add_word(word: String) -> void:
 	var index: int = _first_missing_index()
 	if get_tree().is_network_server():
-		var error_message: String = _validate_word(word, GameState.current_sentence["substitutions"][index])
+		var sentence_substitutions: Array = GameState.current_sentence["substitutions"]
+		if index >= sentence_substitutions.size():
+			GameState.disconnect_cheater(get_tree().get_rpc_sender_id(), "Received word %s when the number of substitutions in the sentence has ended" % word)
+			return
+		var error_message: String = _validate_word(word, sentence_substitutions[index])
 		if not error_message.empty():
 			GameState.disconnect_cheater(get_tree().get_rpc_sender_id(), error_message)
+			return
 	substitutions[index] = word
 	emit_signal("substitutions_count_changed", substitutions.size())
 	emit_signal("next_substitution_changed", _first_missing_index(index))
@@ -37,7 +42,10 @@ mastersync func remove_word(word: String) -> void:
 		if substitutions[index] == word:
 			remove_index = index
 	
-	assert(remove_index != -1, "Unable to remove word from sentence: " + word)
+	if get_tree().is_network_server() and remove_index == -1:
+		GameState.disconnect_cheater(get_tree().get_rpc_sender_id(), "Recivied invalid word: %s" % word)
+		return
+
 	# warning-ignore:return_value_discarded
 	substitutions.erase(remove_index)
 	emit_signal("substitutions_count_changed", substitutions.size())

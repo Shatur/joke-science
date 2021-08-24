@@ -97,8 +97,7 @@ func _check_cards_choosen(_count: int) -> void:
 	for player_state in player_states:
 		if player_state.substitutions.size() != subsitutions_count:
 			return
-	
-	
+
 	var substitutions: Array = []
 	for player_state in GameState.player_states:
 		substitutions.append(player_state.substitutions)
