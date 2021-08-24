@@ -2,10 +2,8 @@ extends Node
 
 
 signal player_added(player_state)
-signal new_sentence_available()
 signal cheating_detected(id, reason)
-# warning-ignore:unused_signal
-signal all_cards_choosen(substitutions) # Called via RPC
+signal state_changed()
 
 enum {
 	NO_STATE,
@@ -15,21 +13,20 @@ enum {
 
 const CARDS_COUNT: int = 10
 
-var current_sentence: Dictionary setget set_current_sentence
+puppetsync var current_sentence: Dictionary
 var player_states: Array
 var current_player_state: PlayerState
 
 # Available only on server
 var sentence_cards: Array
 var answer_cards: Array
-var state: int = NO_STATE
+var state: int = NO_STATE setget set_state
 
 var _random := RandomNumberGenerator.new()
 
 
 func _ready() -> void:
 	_random.randomize()
-	rpc_config("emit_signal", MultiplayerAPI.RPC_MODE_PUPPETSYNC)
 
 
 master func join_game(nickname: String) -> void:
@@ -65,15 +62,18 @@ func disconnect_cheater(id: int, reason: String) -> void:
 	get_tree().network_peer.disconnect_peer(id)
 
 
-puppetsync func set_current_sentence(new_sentence: Dictionary) -> void:
-	current_sentence = new_sentence
-	emit_signal("new_sentence_available")
+puppet func set_state(new_state: int) -> void:
+	state = new_state
+	emit_signal("state_changed")
+	if get_tree().is_network_server():
+		rpc("set_state", state)
 
 
 func _pick_sentence() -> void:
-	state = CHOOSING_CARDS
 	var sentence_index: int = _random.randi_range(0, sentence_cards.size() - 1)
-	rpc("set_current_sentence", sentence_cards[sentence_index])
+	rset("current_sentence", sentence_cards[sentence_index])
+	# TODO 4.0: remove self
+	self.state = CHOOSING_CARDS
 
 
 func _deal_cards() -> void:
@@ -106,8 +106,5 @@ func _check_cards_choosen(_count: int) -> void:
 		if player_state.substitutions.size() != subsitutions_count:
 			return
 
-	state = CHOOSING_SENTENCES
-	var substitutions: Array = []
-	for player_state in GameState.player_states:
-		substitutions.append(player_state.substitutions)
-	rpc("emit_signal", "all_cards_choosen", substitutions)
+	# TODO 4.0: remove self
+	self.state = CHOOSING_SENTENCES

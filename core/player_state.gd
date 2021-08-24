@@ -17,7 +17,7 @@ func _init(new_id: int, new_nickname: String) -> void:
 	id = new_id
 	nickname = new_nickname
 	# warning-ignore:return_value_discarded
-	GameState.connect("new_sentence_available", self, "_on_new_sentence_available")
+	GameState.connect("state_changed", self, "_on_state_changed")
 
 
 mastersync func add_word(word: String) -> void:
@@ -58,10 +58,11 @@ puppet func set_cards(cards: Array) -> void:
 		emit_signal("card_added", card)
 
 
-func _on_new_sentence_available() -> void:
-	substitutions.clear()
-	emit_signal("substitutions_count_changed", 0)
-	emit_signal("next_substitution_changed", 0)
+func _on_state_changed() -> void:
+	if GameState.state == GameState.CHOOSING_CARDS:
+		substitutions.clear()
+		emit_signal("substitutions_count_changed", 0)
+		emit_signal("next_substitution_changed", 0)
 
 
 func _validate_substitution(word: String, substitution: Dictionary) -> bool:
