@@ -11,6 +11,8 @@ func _ready():
 	GameState.current_player_state.connect("card_added", self, "_add_card")
 	# warning-ignore:return_value_discarded
 	GameState.current_player_state.connect("next_substitution_changed", self, "_redraw_cards")
+	# warning-ignore:return_value_discarded
+	GameState.connect("state_changed", self, "_on_state_changed")
 
 
 func _redraw_cards(substitution_index: int) -> void:
@@ -49,3 +51,8 @@ func _on_card_toggled(button_pressed: bool, card_button: CardButton) -> void:
 		GameState.current_player_state.rpc("add_word", card_button.label.text)
 	else:
 		GameState.current_player_state.rpc("remove_word", card_button.label.text)
+
+
+func _on_state_changed() -> void:
+	for card_button in _grid_container.get_children():
+		card_button.disabled = GameState.state == GameState.CHOOSING_SENTENCES
