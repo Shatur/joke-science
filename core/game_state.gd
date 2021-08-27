@@ -95,7 +95,7 @@ puppetsync func _acknowledge_player(id: int, nickname: String) -> void:
 	if get_tree().is_network_server():
 		# warning-ignore:return_value_discarded
 		player_state.connect("substitutions_count_changed", self, "_check_cards_choosen")
-	add_child(player_state) # To allow RPC over network
+	add_child(player_state, true) # To allow RPC over network
 	emit_signal("player_added", player_state)
 
 

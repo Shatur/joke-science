@@ -23,8 +23,7 @@ func _confirm() -> void:
 
 
 func _on_connection_succeed() -> void:
-	_connection_dialog.hide()
-	_enter_lobby()
+	_join_game()
 
 
 func _on_connection_failed() -> void:
